@@ -23,7 +23,15 @@ public class Application extends Controller {
     public static void index() {
     	
         //Post frontPost = Post.find("order by postedAt desc").first();
-    	Post frontPost = (Post) Post.q().order("-_created").asList().get(0);
+    	Post frontPost;
+    	 List<Post> posts = Post.q().order("-_created").asList();
+    	if (posts.size() > 0) {
+    		 frontPost = (Post) Post.q().order("-_created").asList().get(0);
+    	}else {
+    		frontPost = new Post(null, "FirstPost", "First post");
+    		frontPost.save();
+    	}
+    	
     	
         /**List<Post> olderPosts = Post.find(
             "order by postedAt desc"
@@ -32,7 +40,7 @@ public class Application extends Controller {
     	
     	//VILLEREADA ALERT
     	if(olderPosts.size()>10) {
-    	olderPosts = olderPosts.subList(0, 10);
+    	olderPosts = olderPosts.subList(1, 10);
     	}
     	
         render(frontPost, olderPosts);
