@@ -79,7 +79,7 @@ public class Application extends Controller {
         render(tag, posts);
     }
     
-    public static void signUp(@Required(message="Email is required") String email, @Required(message="Paswor is required") String password, String fullname, boolean isAdmin) {
+    public static void signUp(String email, String password, String fullname, boolean isAdmin) {
     	if(session.get("username") != null ) {
     		flash.success("Already Logged in");
     	}else{
