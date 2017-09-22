@@ -1,10 +1,11 @@
 package models;
  
 import java.util.*;
-import javax.persistence.*;
+
+import org.mongodb.morphia.annotations.Entity;
 
 import play.data.validation.Required;
-import play.db.jpa.*;
+import play.modules.morphia.Model;
  
 @Entity
 public class Tag extends Model implements Comparable<Tag> {
@@ -25,17 +26,38 @@ public class Tag extends Model implements Comparable<Tag> {
     }
     
     public static Tag findOrCreateByName(String name) {
-        Tag tag = Tag.find("byName", name).first();
+    	Tag tag = Tag.q().filter("name", name).get();
         if(tag == null) {
             tag = new Tag(name);
+            tag.save();
         }
         return tag;
     }
     
     public static List<Map> getCloud() {
+    	 List<Map> result = countOccurrences(Tag.q().asList());
+    	
+    	/*
         List<Map> result = Tag.find(
             "select new map(t.name as tag, count(p.id) as pound) from Post p join p.tags as t group by t.name order by t.name"
-        ).fetch();
+        ).fetch();*/
+    	 
         return result;
     }
+    
+    
+    @SuppressWarnings("null")
+	private static List<Map> countOccurrences(List<Model> list){
+    	List<Map> listMap = null;
+
+        for(Model tag: list){
+        	
+        	int occurrences = Collections.frequency(list, tag);
+        	Map<Object, Integer> occurrenceMap = new HashMap<Object, Integer>();
+        	occurrenceMap.put(tag, occurrences);
+        	listMap.add(occurrenceMap);
+        }
+        
+        return listMap;
+   }
 }

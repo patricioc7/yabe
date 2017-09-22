@@ -6,6 +6,7 @@ import play.*;
 import play.data.validation.Required;
 import play.libs.Codec;
 import play.libs.Images;
+import play.modules.morphia.Model.MorphiaQuery;
 import play.mvc.*;
 import play.cache.*;
  
@@ -20,26 +21,39 @@ public class Application extends Controller {
     }
     
     public static void index() {
-        Post frontPost = Post.find("order by postedAt desc").first();
-        List<Post> olderPosts = Post.find(
+    	
+        //Post frontPost = Post.find("order by postedAt desc").first();
+    	Post frontPost = (Post) Post.q().order("-_created").asList().get(0);
+    	
+        /**List<Post> olderPosts = Post.find(
             "order by postedAt desc"
-        ).from(1).fetch(10);
+        ).from(1).fetch(10);**/
+    	List<Post> olderPosts = Post.q().order("-_created").asList();
+    	
+    	//VILLEREADA ALERT
+    	if(olderPosts.size()>10) {
+    	olderPosts = olderPosts.subList(0, 10);
+    	}
+    	
         render(frontPost, olderPosts);
     }
 
-    public static void show(Long id) {
-        Post post = Post.findById(id);
+    public static void show(String id) {
+    	
+    	Post post = Post.findById(id);
+        //Post post = Post.findById(id);
         String randomID = Codec.UUID();
         render(post, randomID);
     }
     
     public static void postComment(
-            Long postId, 
+            String postId, 
             @Required(message="Author is required") String author, 
             @Required(message="A message is required") String content, 
             @Required(message="Please type the code") String code, 
             String randomID) 
     {
+        //Post post = Post.findById(postId);
         Post post = Post.findById(postId);
         validation.equals(
             code, Cache.get(randomID)
@@ -63,6 +77,30 @@ public class Application extends Controller {
     public static void listTagged(String tag) {
         List<Post> posts = Post.findTaggedWith(tag);
         render(tag, posts);
+    }
+    
+    public static void signUp(String email, String password, String fullname, boolean isAdmin) {
+    	
+    	MorphiaQuery query = User.q().findBy("email", email);
+    	User checkUser = query.get();
+    	if(checkUser == null) {
+    		User user = new User(email, password, fullname, isAdmin);
+            // Validate
+    		/*
+            validation.valid(user);
+            if(validation.hasErrors()) {
+                render("@form", user);
+            }
+            */
+    		user.save();
+    		flash.success("User created");
+    		
+    		
+    	}else {
+    		//TODO User already exists
+    	}
+
+        render();
     }
  
 }

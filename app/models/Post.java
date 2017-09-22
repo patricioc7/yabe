@@ -1,9 +1,14 @@
 package models;
  
 import java.util.*;
-import javax.persistence.*;
+
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Reference;
+
+import play.modules.morphia.Model;
  
-import play.db.jpa.*;
+
  
 @Entity
 public class Post extends Model {
@@ -11,16 +16,16 @@ public class Post extends Model {
     public String title;
     public Date postedAt;
     
-    @Lob
+    //@Lob
     public String content;
     
-    @ManyToOne
+    @Reference
     public User author;
     
-    @OneToMany(mappedBy="post", cascade=CascadeType.ALL)
+    @Reference
     public List<Comment> comments;
      
-    @ManyToMany(cascade=CascadeType.PERSIST)
+    @Reference
     public Set<Tag> tags;
      
     public Post(User author, String title, String content) {
@@ -31,6 +36,7 @@ public class Post extends Model {
         this.content = content;
         this.postedAt = new Date();
     }
+    
     
     public Post addComment(String author, String content) {
         Comment newComment = new Comment(this, author, content).save();
@@ -45,22 +51,32 @@ public class Post extends Model {
     }
     
     public Post previous() {
-        return Post.find("postedAt < ? order by postedAt desc", postedAt).first();
+       // return Post.find("postedAt < ? order by postedAt desc", postedAt).first();
+    	MorphiaQuery query = Post.q();
+    	query.field("postedAt").lessThan(postedAt);
+        return query.first();
     }
      
     public Post next() {
-        return Post.find("postedAt > ? order by postedAt asc", postedAt).first();
+    	MorphiaQuery query = Post.q();
+    	query.field("postedAt").greaterThan(postedAt);
+        return query.first();
     }
     
     public static List<Post> findTaggedWith(String tag) {
-        return Post.find(
+    	return Post.q().filter("tag", tag).asList();
+    	
+        /*return Post.find(
             "select distinct p from Post p join p.tags as t where t.name = ?", tag
-        ).fetch();
+        ).fetch();*/
     }
-    
+    /* TODO
     public static List<Post> findTaggedWith(String... tags) {
-        return Post.find(
+        
+    	
+    	
+    	return Post.find(
                 "select distinct p from Post p join p.tags as t where t.name in (:tags) group by p.id, p.author, p.title, p.content,p.postedAt having count(t.id) = :size"
         ).bind("tags", tags).bind("size", tags.length).fetch();
-    }
+    }*/
 }

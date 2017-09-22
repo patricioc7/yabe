@@ -1,11 +1,12 @@
 package models;
  
 import java.util.*;
-import javax.persistence.*;
+
+import org.mongodb.morphia.annotations.Entity;
 
 import play.data.validation.Email;
 import play.data.validation.Required;
-import play.db.jpa.*;
+import play.modules.morphia.Model;
  
 @Entity
 public class User extends Model {
@@ -24,9 +25,17 @@ public class User extends Model {
         this.password = password;
         this.fullname = fullname;
     }
+    
+    public User(String email, String password, String fullname, boolean isAdmin) {
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+        this.isAdmin = isAdmin;
+    }
 
     public static User connect(String email, String password) {
-        return find("byEmailAndPassword", email, password).first();
+        //return find("byEmailAndPassword", email, password).first();
+    	return q().filter("email", email).filter("password", password).get();
     }
     
     public String toString() {

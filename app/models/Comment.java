@@ -1,11 +1,13 @@
 package models;
  
 import java.util.*;
-import javax.persistence.*;
+
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Reference;
 
 import net.sf.oval.constraint.MaxSize;
 import play.data.validation.Required;
-import play.db.jpa.*;
+import play.modules.morphia.Model;
  
 @Entity
 public class Comment extends Model {
@@ -16,12 +18,11 @@ public class Comment extends Model {
 	@Required
     public Date postedAt;
      
-    @Lob
     @Required
     @MaxSize(10000)
     public String content;
     
-    @ManyToOne
+    @Reference
     @Required
     public Post post;
     

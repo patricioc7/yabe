@@ -1,6 +1,7 @@
 package controllers;
  
 import play.*;
+import play.modules.morphia.Model.MorphiaQuery;
 import play.mvc.*;
  
 import java.util.*;
@@ -9,19 +10,43 @@ import models.*;
  
 @With(Secure.class)
 public class Admin extends Controller {
+	
+	private static User defaultUser;
     
     @Before
     static void setConnectedUser() {
         if(Security.isConnected()) {
             User user = User.find("byEmail", Security.connected()).first();
-            renderArgs.put("user", user.fullname);
+            //VILLEREADA
+            if(user==null) {
+	            User fistUserEver = User.q().filter("email", "admin@yabe.com").get();
+	            if(fistUserEver==null) {
+		          	defaultUser = new User("admin@yabe.com", "pass1234", "FirstAdminEver", true).save();
+		            renderArgs.put("user", defaultUser.fullname);
+	            }else {
+	            	renderArgs.put("user", fistUserEver.fullname);
+	            }
+            }else {
+            	renderArgs.put("user", user.fullname);
+            }
         }
     }
  
     public static void index() {
         String user = Security.connected();
-        List<Post> posts = Post.find("author.email", user).fetch();
-        render(posts);
+        // //List<Post> posts = Post.find("author.email", user).fetch();
+        
+        //List<Post> posts = Post.q().filter("user", user).asList();
+        
+        List<Post> posts = Post.q().asList();
+        //VILLEREADA
+        if (posts.isEmpty()) {
+        	List<Post> fakePostsList = new ArrayList<Post>();
+        	fakePostsList.add(new Post(defaultUser, "Generic Author", "Generic Author").save());
+        	render(fakePostsList);
+        }else {
+        	render(posts);
+        }
     }
     
     public static void form() {
@@ -65,5 +90,6 @@ public class Admin extends Controller {
         }
         render();
     }
+       
     
 }

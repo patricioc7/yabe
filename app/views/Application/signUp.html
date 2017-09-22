@@ -1,0 +1,43 @@
+#{extends 'Secure/layout.html' /}
+
+<div id="login">
+	
+	
+	<h1>Sign Up</h1>	
+	#{form @signUp()}
+		
+		#{if flash.error}
+			<p class="error">
+				${messages.get(flash.error)}
+			</p>
+		#{/if}
+		#{if flash.success}
+			<p class="success">
+				${messages.get(flash.success)}
+			</p>
+		#{/if}
+	
+		<p id="username-field">
+			<label for="username">Email</label>
+			<input type="text" name="email" id="email" value="${user?.username}" />
+		</p>
+		<p id="password-field">
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password" value="" />
+		</p>
+		<p id="username-field">
+			<label for="fullname">Full Name</label>
+			<input type="text" name="fullname" id="fullname" value="${flash.fullname}" />
+		</p>
+		<p id="username-field">
+			<label for="isAdmin">isAdmin?</label>
+			<input type="checkbox" name="isAdmin" id="isAdmin" value="" />
+		</p>
+		<p id="signin-field">
+			<input type="submit" id="signUp" value="Mandale Mecha" />
+		</p>
+	#{/form}
+	<br>
+	<br>
+	<p><a class="goHome" href="@{Application.index()}">Home - Yabe</a></p>
+</div>

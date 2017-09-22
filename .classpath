@@ -5,10 +5,21 @@
 	<classpathentry kind="src" path="secure"/>
 	<classpathentry kind="src" path="crud"/>
 	<classpathentry kind="src" path="docviewer"/>
+	<classpathentry kind="src" path="morphia-1.5.0a"/>
 	
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/home/patricio/Documentos/play-1.4.4/framework/play-1.4.4.jar" sourcepath="/home/patricio/Documentos/play-1.4.4/framework/src" />
+	<classpathentry kind="lib" path="/home/patricio/Documentos/proyectos/yabe/lib/guava-14.0.1.jar" sourcepath="/home/patricio/.ivy2/cache/com.google.guava/guava/sources/guava-14.0.1-sources.jar"/>
+	<classpathentry kind="lib" path="/home/patricio/Documentos/proyectos/yabe/lib/jsr305-1.3.9.jar"/>
+	<classpathentry kind="lib" path="/home/patricio/Documentos/proyectos/yabe/lib/mongo-java-driver-2.13.1.jar" sourcepath="/home/patricio/.ivy2/cache/org.mongodb/mongo-java-driver/sources/mongo-java-driver-2.13.1-sources.jar"/>
 	<classpathentry kind="lib" path="/home/patricio/Documentos/play-1.4.4/modules/docviewer/lib/play-docviewer.jar"/>
+	<classpathentry kind="lib" path="/home/patricio/Documentos/proyectos/yabe/modules/morphia-1.5.0a/lib/osgl-storage-0.3-20140601.115837-4.jar"/>
+	<classpathentry kind="lib" path="/home/patricio/Documentos/proyectos/yabe/modules/morphia-1.5.0a/lib/osgl-tool-0.3-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/home/patricio/Documentos/proyectos/yabe/modules/morphia-1.5.0a/lib/osgl-logging-0.3-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/home/patricio/Documentos/proyectos/yabe/modules/morphia-1.5.0a/lib/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="/home/patricio/Documentos/proyectos/yabe/modules/morphia-1.5.0a/lib/morphia-0.107.jar"/>
+	<classpathentry kind="lib" path="/home/patricio/Documentos/proyectos/yabe/modules/morphia-1.5.0a/lib/mongo-java-driver-2.12.0-rc3.jar"/>
+	<classpathentry kind="lib" path="/home/patricio/Documentos/proyectos/yabe/modules/morphia-1.5.0a/lib/play-morphia-1.5.0a.jar"/>
 	<classpathentry kind="lib" path="/home/patricio/Documentos/play-1.4.4/framework/lib/joda-time-2.9.7.jar"/>
 	<classpathentry kind="lib" path="/home/patricio/Documentos/play-1.4.4/framework/lib/jboss-transaction-api_1.1_spec-1.0.1.Final.jar"/>
 	<classpathentry kind="lib" path="/home/patricio/Documentos/play-1.4.4/framework/lib/jaxen-1.1.6.jar"/>
