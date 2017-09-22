@@ -79,26 +79,30 @@ public class Application extends Controller {
         render(tag, posts);
     }
     
-    public static void signUp(String email, String password, String fullname, boolean isAdmin) {
+    public static void signUp(@Required(message="Email is required") String email, @Required(message="Paswor is required") String password, String fullname, boolean isAdmin) {
+    	if(session.get("username") != null ) {
+    		flash.success("Already Logged in");
+    	}else{
+    		MorphiaQuery query = User.q().findBy("email", email);
+        	User checkUser = query.get();
+        	if(checkUser == null) {
+        		User user = new User(email, password, fullname, isAdmin);
+                // Validate
+        	
+                validation.valid(user);
+                if(validation.hasErrors()) {
+                    render("@signUp", user);
+                }
+                
+        		user.save();
+        		flash.success("User created");
+        		
+        		
+        	}else {
+        		//flash.success("User already exists");
+        	}
+    	};
     	
-    	MorphiaQuery query = User.q().findBy("email", email);
-    	User checkUser = query.get();
-    	if(checkUser == null) {
-    		User user = new User(email, password, fullname, isAdmin);
-            // Validate
-    		/*
-            validation.valid(user);
-            if(validation.hasErrors()) {
-                render("@form", user);
-            }
-            */
-    		user.save();
-    		flash.success("User created");
-    		
-    		
-    	}else {
-    		//TODO User already exists
-    	}
 
         render();
     }

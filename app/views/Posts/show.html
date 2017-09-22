@@ -7,7 +7,7 @@
 
     <div class="objectForm">
     #{form action:@save(object._key()), enctype:'multipart/form-data'}
-        #{crud.form}
+        #{crud.form fields:['title','content', 'author', 'comments', 'tags']}
 		    #{crud.custom 'tags'}
 		        <label for="tags">
 		            &{'tags'}

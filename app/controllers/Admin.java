@@ -55,6 +55,7 @@ public class Admin extends Controller {
     
     public static void save(Long id, String title, String content, String tags) {
         Post post;
+        
         if(id == null) {
             // Create post
             User author = User.find("byEmail", Security.connected()).first();
@@ -82,9 +83,11 @@ public class Admin extends Controller {
         post.save();
         index();
     }
+        
     
-    public static void form(Long id) {
+    public static void form(String id) {
         if(id != null) {
+        	
             Post post = Post.findById(id);
             render(post);
         }

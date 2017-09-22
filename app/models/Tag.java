@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.mongodb.morphia.annotations.Entity;
 
+import com.google.common.collect.Maps;
+
 import play.data.validation.Required;
 import play.modules.morphia.Model;
  
@@ -53,7 +55,7 @@ public class Tag extends Model implements Comparable<Tag> {
         for(Model tag: list){
         	
         	int occurrences = Collections.frequency(list, tag);
-        	Map<Object, Integer> occurrenceMap = new HashMap<Object, Integer>();
+        	Map<Object, Integer> occurrenceMap = Maps.newHashMap();
         	occurrenceMap.put(tag, occurrences);
         	listMap.add(occurrenceMap);
         }

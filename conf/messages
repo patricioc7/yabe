@@ -14,4 +14,4 @@ fullname=Full name
 isAdmin=User is admin
 secure.username=Your email:
 secure.password=Your password:
-secure.signin=Log in now
+user.mail=la manqueaste con el meil

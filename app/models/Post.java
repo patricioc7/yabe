@@ -70,6 +70,10 @@ public class Post extends Model {
             "select distinct p from Post p join p.tags as t where t.name = ?", tag
         ).fetch();*/
     }
+    
+    public String toString() {
+    	return title;
+    }
     /* TODO
     public static List<Post> findTaggedWith(String... tags) {
         

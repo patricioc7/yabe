@@ -19,7 +19,8 @@
 	
 		<p id="username-field">
 			<label for="username">Email</label>
-			<input type="text" name="email" id="email" value="${user?.username}" />
+			<input type="text" name="email" id="email" value="${user?.email}" />
+			<span class="error">#{error 'la manqueaste con el mail' /}</span>
 		</p>
 		<p id="password-field">
 			<label for="password">Password</label>
