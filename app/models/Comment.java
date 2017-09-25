@@ -22,7 +22,7 @@ public class Comment extends Model {
     @MaxSize(10000)
     public String content;
     
-    @Reference
+    @Reference(ignoreMissing = true)
     @Required
     public Post post;
     
@@ -31,6 +31,7 @@ public class Comment extends Model {
         this.author = author;
         this.content = content;
         this.postedAt = new Date();
+        this.save();
     }
     
     public String toString() {

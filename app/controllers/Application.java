@@ -40,7 +40,9 @@ public class Application extends Controller {
     	
     	//VILLEREADA ALERT
     	if(olderPosts.size()>10) {
-    	olderPosts = olderPosts.subList(1, 10);
+    		olderPosts = olderPosts.subList(1, 10);
+    	}else {
+    		olderPosts.remove(0);
     	}
     	
         render(frontPost, olderPosts);

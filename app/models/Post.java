@@ -16,16 +16,15 @@ public class Post extends Model {
     public String title;
     public Date postedAt;
     
-    //@Lob
     public String content;
     
-    @Reference
+    @Reference(ignoreMissing = true)
     public User author;
     
-    @Reference
+    @Reference(ignoreMissing = true)
     public List<Comment> comments;
      
-    @Reference
+    @Reference(ignoreMissing = true)
     public Set<Tag> tags;
      
     public Post(User author, String title, String content) {
