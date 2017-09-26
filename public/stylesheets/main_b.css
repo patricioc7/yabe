@@ -1,3 +1,7 @@
+body {
+    font: 400 15px Lato, sans-serif;
+    line-height: 1.8;
+}
 .navbar {
     margin-bottom: 0;
     background-color: #2d3f56!important;
@@ -10,6 +14,21 @@
     font-family: Montserrat, sans-serif;
 }
 
+.jumbotron { 
+    background-color: #364B66; 
+    color: #ffffff;
+    padding: 100px 25px;
+    font-family: Montserrat, sans-serif;
+}
+
+FOOTER{
+	background-color: #a9a9a9;
+    padding: 25px;
+}
+
+.white{
+	color: #fff;
+}
 .navbar li a, .navbar .navbar-brand {
     color: #fff !important;
 }
@@ -24,12 +43,7 @@
     color: #fff !important;
 }
 
-.jumbotron { 
-    background-color: #364B66; 
-    color: #ffffff;
-    padding: 100px 25px;
-    font-family: Montserrat, sans-serif;
-}
+
 
 .logo-small {
     color: #fff;
@@ -43,4 +57,31 @@
 
 .bg-grey {
     background-color: #f6f6f6;
+}
+.panel{
+	padding: 20px;
+	border-color: none;
+}
+.post-title{
+	margin-top: 2px;
+}
+.random-title{
+	color: #337ab7;
+	
+}
+
+@media (min-width: 768px){
+	.modal-dialog {
+	    margin: 78px auto;
+	}
+}
+
+.comment-button{
+	padding: 25px;
+}
+.comment-date{
+	font-size: 12px;
+}
+.panel-default{
+    border-color: white;
 }
