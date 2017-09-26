@@ -7,9 +7,12 @@
 
 
     <div id="crudListTable">
-        #{crud.table fields:['title'] }
+        #{crud.table fields:['title', 'author'] }
 			#{crud.custom 'title'}
                <a href="/admin/posts/${object?._id}">${object?.title}</a>
+           	#{/crud.custom}
+           	#{crud.custom 'author'}
+               <a href="/admin/posts/${object?._id}">${object?.author}</a>
            	#{/crud.custom}
 		#{/crud.table}
     </div>
